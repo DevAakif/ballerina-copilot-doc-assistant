@@ -1,4 +1,14 @@
-# created by virtualenv automatically
+# Environment variables
 .env
-.env/
+
+# Python virtual environment
 .venv/
+
+# Python cache files
+__pycache__/
+
+# Build directory
+build/
+
+# IDE settings (for JetBrains products like PyCharm)
+.idea/
