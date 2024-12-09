@@ -100,7 +100,7 @@ llm = AzureChatOpenAI(
     temperature=0
 )
 
-def assistant_chat(question: str) -> str:
+async def assistant_chat(question: str) -> str:
     docs = vector_store.similarity_search(query=question, k=6)
     for document in docs:
         print("Document: ", document)

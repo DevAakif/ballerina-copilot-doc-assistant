@@ -28,7 +28,7 @@ class Question(BaseModel):
 
 @app.post("/chat")
 async def root(question: Question):
-   return assistant_chat(question.query)
+   return await assistant_chat(question.query)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
