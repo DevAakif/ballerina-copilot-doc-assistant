@@ -21,6 +21,7 @@ from app import assistant_chat
 
 
 app = FastAPI()
+app.openapi_version = "3.0.2"
 
 class Question(BaseModel):
    query: str
