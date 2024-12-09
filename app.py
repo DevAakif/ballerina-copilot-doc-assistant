@@ -26,7 +26,6 @@ from numpy.f2py.crackfortran import verbose
 from langchain_openai import AzureOpenAIEmbeddings
 from langchain_postgres.vectorstores import PGVector
 from utils.prompt_template import template
-import psycopg2
 import os
 
 load_dotenv()
