@@ -18,7 +18,7 @@ from langchain.agents import create_tool_calling_agent, AgentExecutor, initializ
 from langchain.chains.llm import LLMChain
 from langchain.chains.question_answering.refine_prompts import chat_qa_prompt_template
 from langchain.chains.summarize.map_reduce_prompt import prompt_template
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain_core.tools import tool
 from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
@@ -26,8 +26,6 @@ from numpy.f2py.crackfortran import verbose
 from langchain_openai import AzureOpenAIEmbeddings
 from langchain_postgres.vectorstores import PGVector
 from utils.prompt_template import template
-import psycopg
-import psycopg2
 import os
 
 load_dotenv()
