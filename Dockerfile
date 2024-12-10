@@ -19,8 +19,8 @@ COPY . $APP_HOME
 RUN chown -R appuser:appgroup $APP_HOME
 
 # Switch to the non-root user
-USER appuser
+USER 10013
 
 # Expose port and set the default command
-EXPOSE 8080
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
