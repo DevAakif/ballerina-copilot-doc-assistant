@@ -10,7 +10,6 @@ pydantic==2.10.3
 pydantic_core==2.27.1
 load-dotenv==0.1.0
 uvicorn==0.32.1
-psycopg==3.2.3
 psycopg-binary==3.2.3
 psycopg-pool==3.2.4
 psycopg2==2.9.10
