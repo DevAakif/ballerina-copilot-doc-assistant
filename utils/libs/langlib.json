@@ -1,0 +1,31 @@
+[
+    {
+        "name": "ballerina/lang.runtime",
+        "description": "This module provides apis for runtime related operations.",
+        "typeDefs": [],
+        "clients": [],
+        "functions": [
+            {
+                "name": "sleep",
+                "type": "Function",
+                "description": "Halts the current strand for a predefined amount of time.",
+                "parameters": [
+                    {
+                        "name": "duration",
+                        "type": {
+                            "name": "decimal"
+                        },
+                        "description": "An amount of time to sleep in seconds"
+                        
+                    }
+                ],
+                "return": {
+                    "type": {
+                        "name": "nil"
+                    },
+                    "description": ""
+                }
+            }
+        ]
+    }
+]

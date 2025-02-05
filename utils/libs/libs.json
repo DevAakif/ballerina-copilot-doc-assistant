@@ -1,0 +1,360 @@
+[
+    {
+        "name": "ballerina/http",
+        "description": "This module allows you to access the http client and server endpoints.",
+        "typeDefs": [
+            {
+                "name": "CredentialsConfig",
+                "description": "Represents credentials for Basic Auth authentication.",
+                "type": "Record",
+                "fields": [
+                ]
+            },
+            {
+                "name": "BearerTokenConfig",
+                "description": "Represents token for Bearer token authentication.",
+                "type": "Record",
+                "fields": [
+                    {
+                        "name": "token",
+                        "type": {
+                            "name": "string"
+                        },
+                        "description": "Bearer token for authentication"
+                        
+                    }
+                ]
+            },
+            {
+                "name": "ClientConfiguration",
+                "description": "Provides a set of configurations for controlling the behaviours when communicating with a remote HTTP endpoint. The following fields are inherited from the other configuration records in addition to the Client-specific configs.",
+                "type": "Record",
+                "fields": [
+                    {
+                        "name": "timeout",
+                        "type": {
+                            "name": "int"
+                        },
+                        "description": ""
+                        
+                    }
+                ]
+            },
+            {
+                "name": "HttpVersion",
+                "description": "Defines the supported HTTP protocols.",
+                "type": "Enum",
+                "members":[{
+                    "name": "HTTP_1_0",
+                    "description": "Represents HTTP/1.0 protocol"
+                },{
+                    "name": "HTTP_1_1",
+                    "description": "Represents HTTP/1.1 protocol"
+                },{
+                    "name": "HTTP_2_0",
+                    "description": "Represents HTTP/2.0 protocol"
+                }]
+            },
+            {
+                "name": "ClientHttp2Settings",
+                "description": "Provides settings related to HTTP/2 protocol.",
+                "type": "Record",
+                "fields": [
+                    {
+                        "name": "http2PriorKnowledge",
+                        "type": {
+                            "name": "boolean?"
+                        },
+                        "description": "Configuration to enable HTTP/2 prior knowledge"
+                    },
+                    {
+                        "name": "http2InitialWindowSize",
+                        "type": {
+                            "name": "int?"
+                        },
+                        "description": "Configuration to change the initial window size"
+                    }
+                ]
+            }, {
+                "name": "Compression",
+                "description": "Options to compress using gzip or deflate.",
+                "type": "Record",
+                "fields": [
+                ]
+            },
+            {
+                "name": "KeepAlive",
+                "type": "Record",
+                "description": "Defines the possible values for the keep-alive configuration in service and client endpoints.",
+                "fields": [
+                ]
+            },
+            {
+                "name": "Chunking",
+                "type": "Record",
+                "description": "Defines the possible values for the chunking configuration in HTTP services and clients.",
+                "fields": [
+                ]
+            }, {
+                "name": "PoolConfiguration",
+                "type": "Record",
+                "description": "Configurations for managing HTTP client connection pool.",
+                "fields": [
+                    {
+                        "name": "maxActiveConnections",
+                        "type": {
+                            "name": "int"
+                        },
+                        "description": "Max active connections per route(host:port). Default value is -1 which indicates unlimited."
+                    }
+                ]
+            } ,{
+                "name": "CacheConfig",
+                "type": "Record",
+                "description": "Provides a set of configurations for controlling the caching behaviour of the endpoint.",
+                "fields": [
+                    {
+                        "name": "enabled",
+                        "type": {
+                            "name": "boolean?"
+                        },
+                        "description": "Specifies whether HTTP caching is enabled. Caching is enabled by default."
+                    }
+                ]
+            } ,
+            {
+                "name": "CircuitBreakerConfig",
+                "type": "Record",
+                "description": "Provides a set of configurations for controlling the behaviour of the Circuit Breaker.",
+                "fields": [
+                ]
+            } ,
+            {
+                "name": "RetryConfig",
+                "type": "Record",
+                "description": "Provides configurations for controlling the retrying behavior in failure scenarios.",
+                "fields": [
+                    {
+                        "name": "count",
+                        "type": {
+                            "name": "int?"
+                        },
+                        "description": "Number of retry attempts before giving up"
+                    }
+                ]
+            },
+            {
+                "name": "ResponseLimitConfigs",
+                "type": "Record",
+                "description": "Provides inbound response status line, total header and entity body size threshold configurations.",
+                "fields": [
+                    {
+                        "name": "maxHeaderSize",
+                        "type": {
+                            "name": "int?"
+                        },
+                        "description": "Maximum allowed size for headers. Exceeding this limit will result in a ClientError"
+                    }
+                ]
+            },
+            {
+                "name": "ClientSecureSocket",
+                "type": "Record",
+                "description": "Provides configurations for facilitating secure communication with a remote HTTP endpoint.",
+                "fields": [
+                    {
+                        "name": "enable",
+                        "type": {
+                            "name": "boolean?"
+                        },
+                        "description": "Enable SSL validation"
+                    }
+                ]
+            },
+            {
+                "name": "ProxyConfig",
+                "type": "Record",
+                "description": "Proxy server configurations to be used with the HTTP client endpoint.",
+                "fields": [
+                    {
+                        "name": "port",
+                        "type": {
+                            "name": "int?"
+                        },
+                        "description": "Enable SSL validation"
+                    }
+                ]
+            },
+            {
+                "name": "Response",
+                "type": "Class",
+                "description": "Represents an HTTP response.",
+                "functions": [
+                ]
+            }
+        ],
+        "clients": [
+            {
+                "name": "Client",
+                "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it provides includes the functions for the standard HTTP methods forwarding a received request and sending requests using custom HTTP verbs.",
+                "functions": [
+                    {
+                        "name": "init",
+                        "type": "Constructor",
+                        "description": "Gets invoked to initialize the client. During initialization, the configurations provided through the config record is used to determine which type of additional behaviours are added to the endpoint (e.g., caching, security, circuit breaking).",
+                        "parameters": [
+                            {
+                                "name": "url",
+                                "type": {
+                                    "name": "string"
+                                },
+                                "description": "URL of the target service"
+                                
+                            },
+                            {
+                                "name": "config",
+                                "type": {
+                                    "name": "ClientConfiguration?",
+                                    "links": [{
+                                        "category": "internal",
+                                        "recordName": "ClientConfiguration"
+                                    }]
+                                },
+                                "description": "The configurations to be used when initializing the client"
+                            }
+                        ],
+                        "return": {
+                            "type": {
+                                "name": "nil"
+                            }
+                        }
+                    },
+                    {
+                        "name": "get",
+                        "type": "Remote Function",
+                        "description": "function can be used to send HTTP GET requests to HTTP endpoints.",
+                        "parameters": [
+                            {
+                                "name": "path",
+                                "type": {
+                                    "name": "string"
+                                },
+                                "description": "Resource path"
+                                
+                            },
+                            {
+                                "name": "headers",
+                                "type" : {
+                                    "name": "map<string|string[]>?"
+                                },
+                                "description": "The entity headers"
+                            }
+                        ],
+                        "return": {
+                            "type": {
+                                "name": "<>|error"
+                            },
+                            "description": "The response record of the request or an `http:ClientError` if failed to establish the communication with the upstream server or a data binding failure"
+                        }
+                    },
+                    {
+                        "name": "post",
+                        "type": "Remote Function",
+                        "description": "function can be used to send HTTP POST requests to HTTP endpoints.",
+                        "parameters": [
+                            {
+                                "name": "path",
+                                "type": {
+                                    "name": "string"
+                                },
+                                "description": "Resource path"
+                                
+                            },
+                            {
+                                "name": "message",
+                                "type": {
+                                    "name": "anydata"
+                                },
+                                "description": "An HTTP outbound request or any allowed payload"
+                                
+                            },
+                            {
+                                "name": "headers",
+                                "type" : {
+                                    "name": "map<string|string[]>?"
+                                },
+                                "description": "The entity headers"
+                            }
+                        ],
+                        "return": {
+                            "type": {
+                                "name": "<>|error"
+                            },
+                            "description": "The response record of the request or an `http:ClientError` if failed to establish the communication with the upstream server or a data binding failure"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "ballerinax/'client.config",
+        "description": "The Ballerinax Client Config contains common client config utils and Ballerina types for Ballerinax connectors.",
+        "typeDefs": [
+            {
+                "name": "OAuth2RefreshTokenGrantConfig",
+                "description": "Represents OAuth2 refresh token grant configurations for OAuth2 authentication.",
+                "type": "Record",
+                "fields": [
+                    {
+                        "name": "refreshUrl",
+                        "type": {
+                            "name": "string"
+                        },
+                        "description": "Refresh token URL of the token endpoint"
+                        
+                    },
+                    {
+                        "name": "refreshToken",
+                        "type": {
+                            "name": "string"
+                        },
+                        "description": "Refresh token for the token endpoint"
+                        
+                    },
+                    {
+                        "name": "clientId",
+                        "type": {
+                            "name": "string"
+                        },
+                        "description": "Client ID of the client authentication"
+                        
+                    },
+                    {
+                        "name": "clientSecret",
+                        "type": {
+                            "name": "string"
+                        },
+                        "description": "Client secret of the client authentication"
+                        
+                    },
+                    {
+                        "name": "scopes",
+                        "type": {
+                            "name": "string[]?"
+                        },
+                        "description": "Scope(s) of the access request"
+                    }
+                ]
+            },
+            {
+                "name": "ClientHttp1Settings",
+                "description": "Provides settings related to HTTP/1.x protocol.",
+                "type": "Record",
+                "fields": [
+                ]
+            }
+        ],
+        "clients": []
+    }
+]

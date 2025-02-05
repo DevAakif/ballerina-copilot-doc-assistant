@@ -21,10 +21,10 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/chat": {
+    "/askAssistant": {
       "post": {
-        "summary": "Root",
-        "operationId": "root_chat_post",
+        "summary": "Ask",
+        "operationId": "ask_askAssistant_post",
         "requestBody": {
           "content": {
             "application/json": {
