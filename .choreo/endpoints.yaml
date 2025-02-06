@@ -14,15 +14,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-schemaVersion: "1.1"
+version: 1.1
 endpoints:
-    - name: doc-assistant-be2
-      displayName: doc assistant
-      service:
-        basePath: /
-        port: 8000
-      type: REST
-      networkVisibilities:
-        - Project
-        - Public
-      schemaFilePath: openapi.yaml
+  - name: doc assistant
+    port: 8000
+    type: REST
+    networkVisibility: Public
+    context: /
+    schemaFilePath: openapi.yaml
+
