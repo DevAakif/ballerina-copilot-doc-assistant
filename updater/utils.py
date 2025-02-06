@@ -71,7 +71,7 @@ def chunk_docs(filename, file_content):
         content_text = '\n' + chunk.page_content
         chunk.page_content = f"{header1_text}{header2_text}{header3_text}{content_text}"
     chunks += chunked_doc
-    #vector_store.add_documents(chunked_doc)
+    vector_store.add_documents(chunked_doc)
     return chunks
 
 
@@ -98,8 +98,7 @@ def delete_records(filename):
 
     # In this line the query to delete the records with the above ids should be deleted - DONE
     for key in filtered_records:
-        print("key:", key)
-        #db_queries.delete_record(key)
+        db_queries.delete_record(key)
 
     return f"Successfully deleted {len(filtered_records)} records of {filename}"
 
