@@ -160,7 +160,8 @@ async def assistant_tool_call(question: str):
         if id in doc_ids:
             library_links.append(doc_chunks[id].metadata["doc_link"])
 
-    response_content = filtered_response + f"\nreference sources:\n" + "\n".join(library_links)
+    formatted_link = ['<' + link + '>' for link in library_links]
+    response_content = filtered_response + f"  \nreference sources:  \n" + "  \n".join(formatted_link)
     print("Response content: ", response_content)
     return response_content
 
