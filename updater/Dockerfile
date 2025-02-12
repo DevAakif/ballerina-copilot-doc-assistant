@@ -8,10 +8,10 @@ ENV PYTHONUNBUFFERED=1
 RUN groupadd -g 10013 appgroup && \
     useradd -u 10013 -g appgroup -m appuser
 
-# Set working directory inside the updater folder
+# Set working directory inside updater folder
 WORKDIR /app/updater
 
-# Copy only necessary files from the updater folder
+# Copy the entire updater folder, including requirements.txt
 COPY . .
 
 # Install dependencies using requirements.txt from the updater folder
