@@ -8,10 +8,10 @@ ENV PYTHONUNBUFFERED=1
 RUN groupadd -g 10013 appgroup && \
     useradd -u 10013 -g appgroup -m appuser
 
-# Set working directory inside updater folder
+# Set working directory inside the updater folder
 WORKDIR /app/updater
 
-# Copy the entire updater folder, including requirements.txt
+# Copy only necessary files from the updater folder
 COPY . .
 
 # Install dependencies using requirements.txt from the updater folder
@@ -25,4 +25,4 @@ RUN chown -R appuser:appgroup /app
 USER 10013
 
 # Default command to run your entry script (main.py)
-CMD ["python", "app/updater/main.py"]
+CMD ["python", "main.py"]
