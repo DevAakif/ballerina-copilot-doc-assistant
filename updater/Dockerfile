@@ -1,16 +1,15 @@
 # Use the latest stable Python version
 FROM python:3.12
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    APP_HOME=/app/updater  # Working directory inside updater
+# Ensure output is displayed immediately
+ENV PYTHONUNBUFFERED=1
 
 # Create a non-root user for security
 RUN groupadd -g 10013 appgroup && \
     useradd -u 10013 -g appgroup -m appuser
 
-# Set working directory
-WORKDIR $APP_HOME
+# Set working directory inside updater
+WORKDIR /app/updater
 
 # Copy only the updater folder (including requirements.txt)
 COPY . .
