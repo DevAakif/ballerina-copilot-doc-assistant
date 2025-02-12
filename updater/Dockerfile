@@ -3,7 +3,7 @@ FROM python:3.12
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
-    APP_HOME=/app
+    APP_HOME=/app/updater  # Working directory inside updater
 
 # Create a non-root user for security
 RUN groupadd -g 10013 appgroup && \
@@ -12,18 +12,15 @@ RUN groupadd -g 10013 appgroup && \
 # Set working directory
 WORKDIR $APP_HOME
 
-# Copy dependency file first for efficient caching
-COPY requirements.txt .
+# Copy only the updater folder (including requirements.txt)
+COPY . .
 
-# Install dependencies
+# Install dependencies using requirements.txt from updater
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy the entire application
-COPY . $APP_HOME
-
 # Set appropriate permissions
-RUN chown -R appuser:appgroup $APP_HOME
+RUN chown -R appuser:appgroup /app
 
 # Switch to the non-root user
 USER 10013
