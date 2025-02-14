@@ -9,7 +9,7 @@ RUN groupadd -g 10013 appgroup && \
     useradd -u 10013 -g appgroup -m appuser
 
 # Set working directory inside updater folder
-WORKDIR /app/updater
+WORKDIR /app
 
 # Copy the entire updater folder, including requirements.txt
 COPY . .

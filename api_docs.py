@@ -291,7 +291,7 @@ def get_typedef_by_name(name, records):
     for rec in records:
         if rec["name"] == name:
             return rec
-    return Exception(f"TypeDef not found {name}")
+    return None
 
 def add_internal_record(param_type, own_records, all_records):
     if "links" not in param_type:
@@ -385,6 +385,8 @@ def get_external_type_def_refs(external_records, functions, all_typedefs):
 
     if all_typedefs is not None:
         for rec in all_typedefs:
+            if rec is None:
+                continue
             if "fields" in rec:
                 fields = rec["fields"]
                 for fie in fields:
