@@ -1,4 +1,5 @@
 # Copyright (c) 2024, WSO2 LLC. (https://www.wso2.com/) All Rights Reserved.
+from cgitb import reset
 from typing import Tuple, Dict, List, Any
 from xml.dom.minidom import Document
 
@@ -90,15 +91,8 @@ def extract_central_api_docs(query: str) -> list[dict[str,str]]:
 
 tools = [extract_learn_pages, extract_central_api_docs]
 
-# prompt = ChatPromptTemplate.from_messages([
-#                 ("system", "You are an AI assistant specialized in answering questions about the Ballerina programming language. Your task is to provide accurate and helpful answers based solely on the information retrieved from the tools provided. These tools retrieve information from reliable sources to answer questions related to Ballerina. Do not include any links in your response."),
-#                 ("human", "{input}"),
-#                 ("placeholder","{agent_scratchpad}"),
-#             ])
 
 
-
-# this is the implementation to test the tool calls
 async def assistant_tool_call(question: str):
     llm_with_tools = llm.bind_tools(tools)
     ai_msg = llm_with_tools.invoke([HumanMessage(question)])
@@ -107,8 +101,6 @@ async def assistant_tool_call(question: str):
 
     central_context = []
     documentation_context = []
-
-    print(tools_to_execute)
 
     for tool in tools_to_execute:
         if tool['name'] == "extract_learn_pages":
@@ -142,8 +134,6 @@ async def assistant_tool_call(question: str):
     ]
 
 
-    print("This is the llm message: ", llm_message)
-
     llm_response = llm.invoke(llm_message)
     library_links = []
     if len(central_context) != 0:
@@ -161,35 +151,20 @@ async def assistant_tool_call(question: str):
             library_links.append(doc_chunks[id].metadata["doc_link"])
 
     formatted_link = ['<' + link + '>' for link in library_links]
-    response_content = filtered_response + f"  \nreference sources:  \n" + "  \n".join(formatted_link)
-    print("Response content: ", response_content)
-    return response_content
+
+    # if len(formatted_link) != 0:
+    #     response_content = filtered_response + f"  \nreference sources:  \n" + "  \n".join(formatted_link)
+    # else:
+    #     response_content = filtered_response
+
+    response_schema = {
+        "content": filtered_response,
+        "references": formatted_link
+    }
+
+    print("Response content: ", response_schema)
+    return response_schema
 
 
-
-# Below is the execution for the agentic RAG
-# async def doc_assistant_chat(question):
-#     agent = create_tool_calling_agent(llm,tools,prompt)
-#     agent_executor = AgentExecutor(agent=agent,tools=tools,verbose=True)
-#     print("Question: ", question)
-#     result = agent_executor.invoke({"input": question})
-#     #print("Answer: ", result.get('output'))
-#     return result.get('output')
-
-
-#THE IMPLEMENTATION BELOW IS FOR A GENERAL RAG APPLICATION
-
-
-# async def assistant_chat(question: str) -> str:
-#     docs = vector_store.similarity_search(query=question, k=6)
-#
-#     prompt = PromptTemplate.from_template(template)
-#     message = prompt.invoke({"question": question, "context": str(docs)})
-#
-#     print("LLM message: ", message)
-#     print("\n")
-#     response = llm.invoke(message)
-#     print("LLM Response: ", response.content)
-#     return response.content
 
 

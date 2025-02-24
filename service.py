@@ -45,7 +45,7 @@ class Question(BaseModel):
 #     uvicorn.run(app, host="0.0.0.0", port=8000)
 
 
-@app.post("/askAssistant")
+@app.post("/documentation-assistant")
 async def ask(question: Question):
     try:
         if not question.query.strip():

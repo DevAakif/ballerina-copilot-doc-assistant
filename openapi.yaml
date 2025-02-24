@@ -21,10 +21,10 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/askAssistant": {
+    "/documentation-assistant": {
       "post": {
         "summary": "Ask",
-        "operationId": "ask_askAssistant_post",
+        "operationId": "ask_documentation_assistant_post",
         "requestBody": {
           "content": {
             "application/json": {
