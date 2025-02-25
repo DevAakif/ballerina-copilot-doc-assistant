@@ -140,7 +140,7 @@ def load_minified_libraries(context_file, libs_file, libraries):
 
 
 def get_suggested_functions(usecase, content):
-    with open("utils\prompt_funcs.md", "r") as file:
+    with open("utils/prompt_funcs.md", "r") as file:
         get_lib_system_prompt = file.read()
         get_lib_system_prompt = get_lib_system_prompt.replace("<<Context>>", content)
         get_lib_user_prompt = "QUESTION\n```\n" + usecase + "\n```"
